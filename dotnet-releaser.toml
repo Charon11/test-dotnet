@@ -3,11 +3,15 @@
 project = "./web/web.csproj"
 configuration = "Release"
 [github]
-user = "github_user_or_org_here"
-repo = "github_repo_here"
+user = "Charon11"
+repo = "test-dotnet"
 [test]
 enable = false
 [coverage]
 enable = false
-[coveralls]
-enable = false
+[nuget]
+publish = false
+[brew]
+publish = false
+[scoop]
+publish = false

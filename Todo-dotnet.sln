@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo-dotnet", "Todo-dotnet\Todo-dotnet.csproj", "{E5B00FD6-483D-41C5-B15C-29E6C2146DC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{EA27F15F-5867-44A8-BD02-B4AE02F8B689}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web", "web\web.csproj", "{7C298619-CEF9-46E2-BB49-B3E0E3D256D6}"
 EndProject
 Global
@@ -16,10 +14,6 @@ Global
 		{E5B00FD6-483D-41C5-B15C-29E6C2146DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5B00FD6-483D-41C5-B15C-29E6C2146DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5B00FD6-483D-41C5-B15C-29E6C2146DC8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA27F15F-5867-44A8-BD02-B4AE02F8B689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA27F15F-5867-44A8-BD02-B4AE02F8B689}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA27F15F-5867-44A8-BD02-B4AE02F8B689}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA27F15F-5867-44A8-BD02-B4AE02F8B689}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C298619-CEF9-46E2-BB49-B3E0E3D256D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C298619-CEF9-46E2-BB49-B3E0E3D256D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C298619-CEF9-46E2-BB49-B3E0E3D256D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
