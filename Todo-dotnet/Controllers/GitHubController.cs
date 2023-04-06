@@ -14,7 +14,7 @@ namespace Todo_dotnet.Controllers
             _service = service;
         }
         
-        [HttpGet("ap")]
+        [HttpGet("")]
         public async Task<ActionResult<string>> GetBranch()
         {
 
