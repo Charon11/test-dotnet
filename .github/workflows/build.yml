@@ -34,6 +34,9 @@ jobs:
           name: website
           path: website/**
           if-no-files-found: error
+      - name: Zip project # This would actually build your project, using zip for an example artifact
+        run: |
+          zip --junk-paths web-app website/**
       - name: release
         uses: actions/create-release@v1
         id: create_release
@@ -42,7 +45,6 @@ jobs:
           prerelease: false
           release_name: ${{ steps.version.outputs.version }}
           tag_name: ${{ github.ref }}
-          body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           
@@ -52,7 +54,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: website/**
-          asset_name: app.gz
+          asset_path: web-app.zip
+          asset_name: web-app.zip
           asset_content_type: application/zip
       
