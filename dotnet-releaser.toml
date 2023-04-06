@@ -1,7 +1,6 @@
 # configuration file for dotnet-releaser
 [msbuild]
 project = "./web/web.csproj"
-configuration = "Release"
 [github]
 user = "Charon11"
 repo = "test-dotnet"
