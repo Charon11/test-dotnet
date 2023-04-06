@@ -34,7 +34,7 @@ jobs:
           name: website
           path: website/**
           if-no-files-found: error
-      - name: Zip project # This would actually build your project, using zip for an example artifact
+      - name: Zip project
         run: |
           zip -r web-app website/**
       - name: Bump version and push tag
@@ -60,6 +60,6 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: web-app.zip
-          asset_name: web-app.zip
+          asset_name: web-app-${{ steps.tag_version.outputs.new_tag }}.zip
           asset_content_type: application/zip
       
