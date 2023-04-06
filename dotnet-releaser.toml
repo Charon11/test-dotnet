@@ -1,0 +1,13 @@
+# configuration file for dotnet-releaser
+[msbuild]
+project = "./web/web.csproj"
+configuration = "Release"
+[github]
+user = "github_user_or_org_here"
+repo = "github_repo_here"
+[test]
+enable = false
+[coverage]
+enable = false
+[coveralls]
+enable = false
