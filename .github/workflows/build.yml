@@ -12,17 +12,26 @@ jobs:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
     
       - name: Install .NET 7.0
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '7.0.x'
-    
-      - name: Build, Tests, Cover, Pack and Publish (on push tag)
-        shell: bash
-        run: |
-          dotnet tool install --global dotnet-releaser
-          dotnet-releaser run --github-token "${{secrets.GH_TOKEN}}" dotnet-releaser.toml
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - name: Build
+        run: dotnet build web -c Release --no-restore
+      - name: Publish
+        run: dotnet publish web -c Release -o website
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: website
+          path: website/**
+          if-no-files-found: error
+      
