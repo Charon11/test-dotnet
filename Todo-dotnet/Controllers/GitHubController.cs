@@ -17,7 +17,8 @@ namespace Todo_dotnet.Controllers
         [HttpGet("branches")]
         public async Task<ActionResult<string>> GetBranch()
         {
-
+            
+            // Call GH api to get branch
             var ghBranch = await _service.getGHBranch();
 
             if (ghBranch == null)
