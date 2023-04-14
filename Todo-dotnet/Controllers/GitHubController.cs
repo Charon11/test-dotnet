@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using Todo_dotnet.Services;
 
 namespace Todo_dotnet.Controllers
@@ -15,18 +16,17 @@ namespace Todo_dotnet.Controllers
         }
         
         [HttpGet("branches")]
-        public async Task<ActionResult<string>> GetBranch()
+        public async Task<ActionResult<IList<dynamic>>> GetBranch()
         {
-            
-            // Call GH api to get branch
-            var ghBranch = await _service.getGHBranch();
+            Log.Information("Call Github to get branches list");
+            var ghBranch = await _service.GetGhBranch();
 
             if (ghBranch == null)
             {
                 return NotFound();
             }
 
-            return ghBranch;
+            return Ok(ghBranch);
         }
     }
 }
