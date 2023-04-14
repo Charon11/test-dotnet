@@ -7,6 +7,9 @@ project.lock.json
 # Visual Studio Code
 .vscode
 
+/WithAuth/ClientApp/.angular
+/web/ClientApp/.angular
+
 # User-specific files
 *.suo
 *.user
@@ -32,3 +35,4 @@ msbuild.wrn
 .vs/
 
 .idea/
+
