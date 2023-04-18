@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using WithAuth.Auth.Token;
 using WithAuth.Models;
 
@@ -13,5 +14,5 @@ public class RefreshTokenService : IRefreshTokenService
 
     public string Generate(User user) => _tokenGenerator.Generate(_jwtSettings.RefreshTokenSecret,
         _jwtSettings.Issuer, _jwtSettings.Audience,
-        _jwtSettings.RefreshTokenExpirationMinutes);
+        _jwtSettings.RefreshTokenExpirationMinutes, new List<Claim>());
 }

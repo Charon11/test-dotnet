@@ -16,7 +16,13 @@ public abstract class Entity : IEntity
 
         return Id.Equals(other.Id);
     }
-        
+
+    
+    public override int GetHashCode()
+    {
+        return Id.GetHashCode();
+    }
+
     public static bool operator ==(Entity a, Entity b) => a.Equals(b);
     public static bool operator !=(Entity a, Entity b) => !(a == b);
 }

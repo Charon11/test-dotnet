@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Security.Claims;
 using WithAuth.Models;
 
@@ -16,8 +17,8 @@ public class AccessTokenService : IAccessTokenService
         List<Claim> claims = new()
         {
             new Claim("id", user.Id),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim(ClaimTypes.Email, user.Email ?? "no-email"),
+            new Claim(ClaimTypes.Name, user.UserName?? "no-userName"),
             new Claim("EmployeeNumber", "1")
         };
         return _tokenGenerator.Generate(_jwtSettings.AccessTokenSecret, _jwtSettings.Issuer, _jwtSettings.Audience,

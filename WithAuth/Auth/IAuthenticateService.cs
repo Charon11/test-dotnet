@@ -17,5 +17,5 @@ public interface IAuthenticateService
     Task<AuthenticateResponse> Authenticate(User user,CancellationToken cancellationToken);
     
     Task<AuthenticateResponse> AuthenticateFromRefresh(string refresh,CancellationToken cancellationToken);
-    Task<AuthenticateResponse> Login(string user, string password,CancellationToken cancellationToken);
+    Task<AuthenticateResponse> Login(string username, string password,CancellationToken cancellationToken);
 }

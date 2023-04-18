@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Novell.Directory.Ldap;
@@ -15,10 +16,10 @@ public class AuthenticateService : IAuthenticateService
     private readonly IRefreshTokenService _refreshTokenService;
     private readonly IApplicationDbContext _context;
     private readonly UserManager<User> _userManager;
+    private const string SearchBase = "ou=users,dc=wimpi,dc=net";
 
     public AuthenticateService(IAccessTokenService accessTokenService, IRefreshTokenService refreshTokenService,
-        IApplicationDbContext context, UserManager<User> userManager, IRefreshTokenValidator refreshTokenValidator,
-        SignInManager<User> signInManager)
+        IApplicationDbContext context, UserManager<User> userManager, IRefreshTokenValidator refreshTokenValidator)
     {
         _accessTokenService = accessTokenService;
         _refreshTokenService = refreshTokenService;
@@ -72,15 +73,39 @@ public class AuthenticateService : IAuthenticateService
 
     public async Task<AuthenticateResponse> Login(string username, string password, CancellationToken cancellationToken)
     {
-        using var cn = new LdapConnection();
+        var dn = $"uid={username},{SearchBase}";
+        using var ldapConnection = new LdapConnection();
         // connect
-        cn.Connect("127.0.0.1", 10389);
+        ldapConnection.Connect("127.0.0.1", 10389);
         // bind with an username and password
         // this how you can verify the password of an user
-        cn.Bind($"uid={username},ou=users,dc=wimpi,dc=net", password);
-        var mail = cn.GetProperty("mail");
-        if (!cn.Bound) throw new UnauthorizedAccessException($"User {username} not find");
+        ldapConnection.Bind(dn, password);
+        ldapConnection.GetProperty("mail");
+        if (!ldapConnection.Bound) throw new UnauthorizedAccessException($"User {username} not find");
 
+        try
+        {
+            GetUser(dn, ldapConnection);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+
+        ldapConnection.Disconnect();
         return await Authenticate(new User(username) { UserName = username }, new CancellationToken(false));
+    }
+
+
+    private void GetUser(string dn, ILdapConnection ldapConnection)
+    {
+        var entry = ldapConnection.Read(dn);
+        Console.Out.WriteLine("User : " + entry.Dn);
+        Console.Out.WriteLine("Atributes: ");
+        // Parse through the attribute set to get the attributes and the corresponding values
+        foreach (var attribute in entry.GetAttributeSet())
+        {
+            Console.WriteLine($"  {attribute.Name}: {attribute.StringValue}");
+        }
     }
 }

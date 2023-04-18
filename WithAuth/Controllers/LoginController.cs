@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WithAuth.Auth;
@@ -23,10 +24,12 @@ public class LoginController : ControllerBase
     {
         try
         {
-
-            var result = _authenticateService.Login(request.username, request.password, new CancellationToken());
-            return await result.ContinueWith(r => Ok(r));
-            
+            if (request is { Username: not null, Password: not null })
+            {
+                var result = _authenticateService.Login(request.Username, request.Password, new CancellationToken());
+                return await result.ContinueWith(r => Ok(r));
+            }
+            return BadRequest();
         }
         catch (Exception e)
         {
@@ -43,8 +46,14 @@ public class LoginController : ControllerBase
     {
         try
         {
-            return await _authenticateService.AuthenticateFromRefresh(request.RefreshToken, new CancellationToken(false)).ContinueWith(r => Ok(r));
-            
+            if (request.RefreshToken != null)
+            {
+                return await _authenticateService
+                    .AuthenticateFromRefresh(request.RefreshToken, new CancellationToken(false))
+                    .ContinueWith(r => Ok(r));
+            }
+            return BadRequest();
+
         }
         catch (Exception e)
         {
@@ -56,8 +65,8 @@ public class LoginController : ControllerBase
 
 public class AuthRequest
 {
-    public string username { get; set; }
-    public string password { get; set; }
+    public string? Username { get; set; }
+    public string? Password { get; set; }
 }
 
 public class RefreshRequest
@@ -65,5 +74,5 @@ public class RefreshRequest
     /// <summary>
     /// The refresh token.
     /// </summary>
-    public string RefreshToken { get; set; }
+    public string? RefreshToken { get; set; }
 }
