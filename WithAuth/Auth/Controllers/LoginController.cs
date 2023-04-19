@@ -1,9 +1,8 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WithAuth.Auth;
+using WithAuth.Auth.Models;
 
-namespace WithAuth.Controllers;
+namespace WithAuth.Auth.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -63,16 +62,5 @@ public class LoginController : ControllerBase
     }
 }
 
-public class AuthRequest
-{
-    public string? Username { get; set; }
-    public string? Password { get; set; }
-}
 
-public class RefreshRequest
-{
-    /// <summary>
-    /// The refresh token.
-    /// </summary>
-    public string? RefreshToken { get; set; }
-}
+

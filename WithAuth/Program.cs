@@ -1,9 +1,11 @@
 using System.Text;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using WithAuth.Auth;
+using WithAuth.Auth.Models;
 using WithAuth.Auth.Token;
 using WithAuth.Data;
 using WithAuth.Models;
@@ -59,6 +61,10 @@ builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.AddFluentValidationAutoValidation();
+
+builder.Services.AddScoped<IValidator<AuthRequest>, AuthRequestValidator>();
 
 var app = builder.Build();
 
